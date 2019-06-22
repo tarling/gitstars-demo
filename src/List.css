@@ -1,0 +1,31 @@
+.list {
+    width: 268px;
+    border: 2px solid black;
+    padding: 20px;
+    box-sizing: border-box;
+
+    /*background-image: url('./layout.png');
+    background-repeat: no-repeat;*/
+    
+    font-size: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.list__header { /* list__head */
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 0.4em;
+}
+
+.list__sub-head {
+    font-weight: bold;
+    font-style: italic;
+    font-size: 10px;
+    color: #999999;
+}
+
+.list__list {
+    margin-top: 3.3em;
+    padding-left: 0;
+    list-style: none;
+}

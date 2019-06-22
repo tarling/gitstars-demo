@@ -1,5 +1,6 @@
-import moment from 'moment';
 import React from 'react';
+import moment from 'moment';
+import './ListItem.css';
 
 export interface ListItemProps {
   created: Date;
@@ -10,18 +11,18 @@ export interface ListItemProps {
 }
 
 function formatDate(date:Date):string {
-  return moment(date).format('MMMM Do YYYY');
+    return moment(date).format('MMMM Do YYYY');
 }
 
 export const ListItem:React.FC<ListItemProps> = props => {
   return (
-    <div className='list-item'>
-      <a href={props.url} className='list-item__link'>{props.path}</a>
+    <li className='list-item'>
+      <a className='list-item__link' href={props.url}>{props.path}</a>
       <div className='list-item__description'>{props.description}</div>
       <div className='list-item__meta'>
         <div className='list-item__date'>Created: {formatDate(props.created)}</div>
         <div className='list-item__stars'>{props.stars}</div>
       </div>
-    </div>
+    </li>
   );
 };

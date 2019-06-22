@@ -1,9 +1,11 @@
+import moment from 'moment';
 import * as React from 'react';
 import { ListItem, ListItemProps } from './ListItem';
 import './List.css';
 
 interface ListProps {
   language:string;
+  since: Date;
 }
 
 interface ListState {
@@ -22,6 +24,10 @@ interface Record {
   stargazers_count: number;
 }
 
+function formatDate(date:Date):string {
+  return moment(date).format('Do MMMM YYYY');
+}
+
 export class List extends React.PureComponent<ListProps, ListState> {
   
   constructor(props:ListProps) {
@@ -31,9 +37,10 @@ export class List extends React.PureComponent<ListProps, ListState> {
       data: [],
     };
 
-    fetch(`https://api.github.com/search/repositories?q=language:${props.language}&sort=stars&order=desc`)
+    fetch(`https://api.github.com/search/repositories?q=language:${props.language}&sort=stars&order=desc&per_page=3`)
       .then(response => response.json())
       .then((response:Response) => {
+        console.log('count', response.items.length);
         this.setState({
           data: response.items.map(record => ({
             created: new Date(record.created_at),
@@ -49,7 +56,11 @@ export class List extends React.PureComponent<ListProps, ListState> {
   public render() {
     return (
         <div className='list'>
-          {this.state.data.map(item => <ListItem {...item}/>)}
+          <div className='list__header'>Most stars: "{this.props.language}"</div>
+          <div className='list__sub-head'>Repos created since {formatDate(this.props.since)}</div>
+          <ul className='list__list'>
+            {this.state.data.map((item, index) => <ListItem key={index} {...item}/>)}
+          </ul>
         </div>
       );
   }

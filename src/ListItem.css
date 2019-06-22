@@ -1,0 +1,37 @@
+.list-item {
+    margin-bottom: 1.5em;
+}
+
+.list-item:last-child {
+    margin-bottom: 0;
+}
+
+.list-item__link {
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 1em;
+}
+
+.list-item__description {
+    margin-bottom: 0.8em;
+}
+
+.list-item__meta {
+    color: #666666;
+    font-size: 9px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-item__stars {
+    display: flex;
+}
+
+.list-item__stars::before {
+    content: '';
+    background-image: url('./star.svg');
+    background-repeat: no-repeat;
+    width: 12px;
+    display: inline-block;
+    margin-right: 4px;
+}

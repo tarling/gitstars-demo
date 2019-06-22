@@ -1,5 +1,5 @@
-import moment from 'moment';
 import * as React from 'react';
+import moment from 'moment';
 import { ListItem, ListItemProps } from './ListItem';
 import './List.css';
 
@@ -12,11 +12,11 @@ interface ListState {
   data:ListItemProps[];
 }
 
-interface Response {
-  items: Record[];
+interface GitHubSearchResponse {
+  items: RepositoryRecord[];
 }
 
-interface Record {
+interface RepositoryRecord {
   created_at: string;
   description: string;
   full_name: string;
@@ -39,8 +39,7 @@ export class List extends React.PureComponent<ListProps, ListState> {
 
     fetch(`https://api.github.com/search/repositories?q=language:${props.language}&sort=stars&order=desc&per_page=3`)
       .then(response => response.json())
-      .then((response:Response) => {
-        console.log('count', response.items.length);
+      .then((response:GitHubSearchResponse) => {
         this.setState({
           data: response.items.map(record => ({
             created: new Date(record.created_at),

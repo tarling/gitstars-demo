@@ -17,7 +17,7 @@ function formatDate(date:Date):string {
 export const ListItem:React.FC<ListItemProps> = props => {
   return (
     <li className='list-item'>
-      <a className='list-item__link' href={props.url}>{props.path}</a>
+      <a className='list-item__link' href={props.url} target='_blank' rel='noopener noreferrer'>{props.path}</a>
       <div className='list-item__description'>{props.description}</div>
       <div className='list-item__meta'>
         <div className='list-item__date'>Created: {formatDate(props.created)}</div>

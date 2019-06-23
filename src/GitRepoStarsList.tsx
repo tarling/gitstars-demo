@@ -1,19 +1,19 @@
-import * as React from 'react';
 import moment from 'moment';
+import * as React from 'react';
 import 'ts-polyfill/lib/es2015-core';
 import 'ts-polyfill/lib/es2015-promise';
 import 'ts-polyfill/lib/es2016-array-include';
 import 'whatwg-fetch';
-import { ListItem, ListItemProps } from './ListItem';
 import './GitRepoStarsList.css';
+import { ListItem, ListItemProps } from './ListItem';
 
 interface GitRepoStarsListProps {
-  language:string;
+  language: string;
   since: Date;
 }
 
 interface GitRepoStarsListState {
-  data:ListItemProps[];
+  data: ListItemProps[];
 }
 
 interface GitHubSearchResponse {
@@ -28,13 +28,13 @@ interface RepositoryRecord {
   stargazers_count: number;
 }
 
-function formatDate(date:Date):string {
+function formatDate(date: Date): string {
   return moment(date).format('Do MMMM YYYY');
 }
 
 export class GitRepoStarsList extends React.PureComponent<GitRepoStarsListProps, GitRepoStarsListState> {
-  
-  constructor(props:GitRepoStarsListProps) {
+
+  constructor(props: GitRepoStarsListProps) {
     super(props);
 
     this.state = {
@@ -43,7 +43,7 @@ export class GitRepoStarsList extends React.PureComponent<GitRepoStarsListProps,
 
     fetch(`https://api.github.com/search/repositories?q=language:${props.language}&sort=stars&order=desc&per_page=3`)
       .then(response => response.json())
-      .then((response:GitHubSearchResponse) => {
+      .then((response: GitHubSearchResponse) => {
         this.setState({
           data: response.items.map(record => ({
             created: new Date(record.created_at),

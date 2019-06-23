@@ -1,5 +1,5 @@
-import React from 'react';
 import moment from 'moment';
+import React from 'react';
 import './ListItem.css';
 
 export interface ListItemProps {
@@ -10,11 +10,11 @@ export interface ListItemProps {
   url: string;
 }
 
-function formatDate(date:Date):string {
+function formatDate(date: Date): string {
     return moment(date).format('MMMM Do YYYY');
 }
 
-export const ListItem:React.FC<ListItemProps> = props => {
+export const ListItem: React.FC<ListItemProps> =props => {
   return (
     <li className='list-item'>
       <a className='list-item__link' href={props.url} target='_blank' rel='noopener noreferrer'>{props.path}</a>

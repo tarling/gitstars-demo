@@ -5,14 +5,15 @@ import 'ts-polyfill/lib/es2015-promise';
 import 'ts-polyfill/lib/es2016-array-include';
 import 'whatwg-fetch';
 import './GitRepoStarsList.css';
-import { ListItem, ListItemProps } from './ListItem';
+import { ListItem, Props as ListItemProps } from './ListItem';
+import { debounce } from 'debounce';
 
-interface GitRepoStarsListProps {
+interface Props {
   language: string;
   since: Date;
 }
 
-interface GitRepoStarsListState {
+interface State {
   data: ListItemProps[];
 }
 
@@ -32,28 +33,48 @@ function formatDate(date: Date): string {
   return moment(date).format('Do MMMM YYYY');
 }
 
-export class GitRepoStarsList extends React.PureComponent<GitRepoStarsListProps, GitRepoStarsListState> {
+export class GitRepoStarsList extends React.PureComponent<Props, State> {
 
-  constructor(props: GitRepoStarsListProps) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
       data: [],
     };
 
+    this.callApi = debounce(this.callApi, 250);
+
+    this.callApi(props);
+  }
+
+  public componentWillReceiveProps(nextProps: Props) {
+    if (
+      nextProps.language !== this.props.language || 
+      nextProps.since.getTime() !== this.props.since.getTime()
+    ) {
+      this.callApi(nextProps);
+    }
+  }
+
+  private callApi(props: Props) {
     fetch(`https://api.github.com/search/repositories?q=language:${props.language}&sort=stars&order=desc&per_page=3`)
-      .then(response => response.json())
-      .then((response: GitHubSearchResponse) => {
-        this.setState({
-          data: response.items.map(record => ({
-            created: new Date(record.created_at),
-            description: record.description,
-            path: record.full_name,
-            stars: record.stargazers_count,
-            url: record.html_url,
-          })),
-        });
+    .then(response => response.json())
+    .then((response: GitHubSearchResponse) => {
+      let data: ListItemProps[] = [];
+      if (Array.isArray(response.items)) {
+        data = response.items.map(record => ({
+          created: new Date(record.created_at),
+          description: record.description,
+          path: record.full_name,
+          stars: record.stargazers_count,
+          url: record.html_url,
+        }));
+      }
+
+      this.setState({
+        data,
       });
+    });
   }
 
   public render() {

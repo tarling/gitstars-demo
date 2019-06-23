@@ -5,14 +5,14 @@ import 'ts-polyfill/lib/es2015-promise';
 import 'ts-polyfill/lib/es2016-array-include';
 import 'whatwg-fetch';
 import { ListItem, ListItemProps } from './ListItem';
-import './List.css';
+import './GitRepoStarsList.css';
 
-interface ListProps {
+interface GitRepoStarsListProps {
   language:string;
   since: Date;
 }
 
-interface ListState {
+interface GitRepoStarsListState {
   data:ListItemProps[];
 }
 
@@ -32,9 +32,9 @@ function formatDate(date:Date):string {
   return moment(date).format('Do MMMM YYYY');
 }
 
-export class List extends React.PureComponent<ListProps, ListState> {
+export class GitRepoStarsList extends React.PureComponent<GitRepoStarsListProps, GitRepoStarsListState> {
   
-  constructor(props:ListProps) {
+  constructor(props:GitRepoStarsListProps) {
     super(props);
 
     this.state = {
@@ -53,15 +53,15 @@ export class List extends React.PureComponent<ListProps, ListState> {
             url: record.html_url,
           })),
         });
-      })
+      });
   }
 
   public render() {
     return (
-        <div className='list'>
-          <div className='list__header'>Most stars: "{this.props.language}"</div>
-          <div className='list__sub-head'>Repos created since {formatDate(this.props.since)}</div>
-          <ul className='list__list'>
+        <div className='git-repo-stars-list'>
+          <div className='git-repo-stars-list__head'>Most stars: "{this.props.language}"</div>
+          <div className='git-repo-stars-list__sub-head'>Repos created since {formatDate(this.props.since)}</div>
+          <ul className='git-repo-stars-list__list'>
             {this.state.data.map((item, index) => <ListItem key={index} {...item}/>)}
           </ul>
         </div>

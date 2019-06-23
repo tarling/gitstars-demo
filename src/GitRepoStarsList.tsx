@@ -11,7 +11,6 @@ import { ListItem, Props as ListItemProps } from './ListItem';
 
 interface Props {
   language: string;
-  since: Date;
 }
 
 interface State {
@@ -34,7 +33,9 @@ function formatDate(date: Date): string {
   return moment(date).format('Do MMMM YYYY');
 }
 
-export class GitRepoStarsList extends React.PureComponent<Props, State> {
+export class GitRepoStarsList extends React.Component<Props, State> {
+
+  private since: Date;
 
   constructor(props: Props) {
     super(props);
@@ -43,6 +44,9 @@ export class GitRepoStarsList extends React.PureComponent<Props, State> {
       data: [],
     };
 
+    this.since = new Date();
+    this.since.setMonth(this.since.getMonth() - 1);
+
     this.callApi = debounce(this.callApi, 250);
 
     this.callApi(props);
@@ -50,22 +54,17 @@ export class GitRepoStarsList extends React.PureComponent<Props, State> {
 
   public componentWillReceiveProps(nextProps: Props) {
     if (
-      nextProps.language !== this.props.language || 
-      nextProps.since.getTime() !== this.props.since.getTime()
+      nextProps.language !== this.props.language
     ) {
       this.callApi(nextProps);
     }
   }
 
   private callApi(props: Props) {
-    if (isNaN(props.since.getTime())) {
-      return;
-    }
-
     const params = {
       order: 'desc',
       per_page: 3,
-      q: `created:>=${props.since.toISOString().split('T')[0]};language:${props.language}`,
+      q: `created:>=${this.since.toISOString().split('T')[0]}+language:${props.language}`,
       sort: 'stars',
     };
 
@@ -93,7 +92,7 @@ export class GitRepoStarsList extends React.PureComponent<Props, State> {
     return (
         <div className='git-repo-stars-list'>
           <div className='git-repo-stars-list__head'>Most stars: "{this.props.language}"</div>
-          <div className='git-repo-stars-list__sub-head'>Repos created since {formatDate(this.props.since)}</div>
+          <div className='git-repo-stars-list__sub-head'>Repos created since {formatDate(this.since)}</div>
           <ul className='git-repo-stars-list__list'>
             {this.state.data.map((item, index) => <ListItem key={index} {...item}/>)}
           </ul>

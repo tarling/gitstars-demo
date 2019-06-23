@@ -1,11 +1,16 @@
 .git-repo-stars-list {
-    width: 268px;
     border: 2px solid black;
     padding: 20px;
     box-sizing: border-box;
 
     font-size: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media only screen and (min-width: 768px) {
+    .git-repo-stars-list {
+        width: 268px;
+    }
 }
 
 .git-repo-stars-list__head {

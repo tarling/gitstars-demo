@@ -1,5 +1,9 @@
 import * as React from 'react';
 import moment from 'moment';
+import 'ts-polyfill/lib/es2015-core';
+import 'ts-polyfill/lib/es2015-promise';
+import 'ts-polyfill/lib/es2016-array-include';
+import 'whatwg-fetch';
 import { ListItem, ListItemProps } from './ListItem';
 import './List.css';
 

@@ -3,8 +3,10 @@
     "target": "es5",
     "lib": [
       "dom",
-      "dom.iterable",
-      "esnext"
+      "es5",
+      "es2015.core",
+      "es2015.promise",
+      "es2016.array.include"
     ],
     "allowJs": true,
     "skipLibCheck": true,

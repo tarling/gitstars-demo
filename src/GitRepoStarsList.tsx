@@ -68,25 +68,22 @@ export class GitRepoStarsList extends React.Component<Props, State> {
     };
 
     fetch(`https://api.github.com/search/repositories?${queryString.stringify(params, {encode: false})}`)
-    .then(response => response.json())
-    .then((response: GitHubSearchResponse) => {
-      let data: ListItemProps[] = [];
-      if (Array.isArray(response.items)) {
-          data = response.items.map(record => ({
-          created: new Date(record.created_at),
-          description: record.description,
-          path: record.full_name,
-          stars: record.stargazers_count,
-          url: record.html_url,
-        }));
-      }
+      .then(response => response.json())
+      .then((response: GitHubSearchResponse) => {
+        let data: ListItemProps[] = [];
+        if (Array.isArray(response.items)) {
+            data = response.items.map(record => ({
+            created: new Date(record.created_at),
+            description: record.description,
+            path: record.full_name,
+            stars: record.stargazers_count,
+            url: record.html_url,
+          }));
+        }
 
-      this.setState({
-        data,
-      });
-    })
-    .catch(e => {
-      throw e;
+        this.setState({
+          data,
+        });
     });
   }
 

@@ -10,6 +10,7 @@ export const getTestApiResponse = (
     return new Promise(resolve => {
         const fetchResponse = {
             status: 200,
+            // tslint:disable-next-line:no-empty
             clone() {},
             json() {
                 return Promise.resolve(response);
@@ -33,7 +34,8 @@ const mockFetch = jest.fn().mockImplementation(() => {
 global.fetch = mockFetch;
 
 jest.mock('debounce', () => ({
-    debounce: (fn:Function) => fn,
+    // tslint:disable-next-line:ban-types
+    debounce: (fn: Function) => fn,
 }));
 
 import { GitRepoStarsList } from './GitRepoStarsList';

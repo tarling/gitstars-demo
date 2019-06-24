@@ -51,3 +51,15 @@ it('survives when the fetch response has no items', done => {
             setImmediate(done);
         });
 });
+
+it('shows language in quotes when language is truthy', () => {
+    const language = 'foo';
+    const wrapper = shallow((<GitRepoStarsList language={language} />));
+    expect(wrapper.find('.git-repo-stars-list__head').render().text().includes(`: "${language}"`)).toBe(true);
+});
+
+it('shows no quotes in head when language is null', () => {
+    // because it looks bad
+    const wrapper = shallow((<GitRepoStarsList language='' />));
+    expect(wrapper.find('.git-repo-stars-list__head').render().text().includes(': "')).toBe(false);
+});

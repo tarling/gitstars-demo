@@ -86,7 +86,10 @@ export class GitRepoStarsList extends React.Component<Props, State> {
   public render() {
     return (
         <div className='git-repo-stars-list'>
-          <div className='git-repo-stars-list__head'>Most stars: "{this.props.language}"</div>
+          <div className='git-repo-stars-list__head'>Most stars{
+            this.props.language &&
+              `: "${this.props.language}"`
+          }</div>
           <div className='git-repo-stars-list__sub-head'>Repos created since {formatDate(this.since)}</div>
           <ul className='git-repo-stars-list__list'>
             {this.state.data.map((item, index) => <ListItem key={index} {...item}/>)}

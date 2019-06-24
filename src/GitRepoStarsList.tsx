@@ -47,9 +47,13 @@ export class GitRepoStarsList extends React.Component<Props, State> {
     this.since = new Date();
     this.since.setMonth(this.since.getMonth() - 1);
 
-    this.callApi = debounce(this.callApi, 250);
+    console.log('calling api');
+    this.callApi = debounce(this.callApi.bind(this), 250);
 
-    this.callApi(props);
+    
+    // this.callApi(props);
+
+    console.log('called api');
   }
 
   public componentWillReceiveProps(nextProps: Props) {
@@ -61,6 +65,7 @@ export class GitRepoStarsList extends React.Component<Props, State> {
   }
 
   private callApi(props: Props) {
+    console.log('callApi');
     const params = {
       order: 'desc',
       per_page: 3,
@@ -71,9 +76,13 @@ export class GitRepoStarsList extends React.Component<Props, State> {
     fetch(`https://api.github.com/search/repositories?${queryString.stringify(params, {encode: false})}`)
     .then(response => response.json())
     .then((response: GitHubSearchResponse) => {
+      console.log('response');
+      // throw new Error('foo');
+
       let data: ListItemProps[] = [];
-      if (Array.isArray(response.items)) {
-        data = response.items.map(record => ({
+      // if (Array.isArray(response.items)) {
+      if (true) {
+          data = response.items.map(record => ({
           created: new Date(record.created_at),
           description: record.description,
           path: record.full_name,

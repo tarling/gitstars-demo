@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dcfb8bbe0e6086ba6f8c51fef050ab98",
+    "revision": "c9ecbbb96d8ba949a25e9696eb26c7be",
     "url": "/gitstars-demo/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gitstars-demo/static/css/2.764ccc25.chunk.css"
   },
   {
-    "revision": "2ef29ad054948ede4b57",
+    "revision": "2c4db63722c8dfdf23cf",
     "url": "/gitstars-demo/static/css/main.c28ab5b5.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/gitstars-demo/static/js/2.5a46ef44.chunk.js"
   },
   {
-    "revision": "2ef29ad054948ede4b57",
-    "url": "/gitstars-demo/static/js/main.1597bdd8.chunk.js"
+    "revision": "2c4db63722c8dfdf23cf",
+    "url": "/gitstars-demo/static/js/main.7fad22d0.chunk.js"
   },
   {
     "revision": "a2f621908651b43f6b0e",

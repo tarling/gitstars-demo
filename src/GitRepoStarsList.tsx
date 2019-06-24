@@ -52,11 +52,7 @@ export class GitRepoStarsList extends React.Component<Props, State> {
   }
 
   public componentWillReceiveProps(nextProps: Props) {
-    if (
-      nextProps.language !== this.props.language
-    ) {
-      this.callApi(nextProps);
-    }
+    this.callApi(nextProps);
   }
 
   private callApi(props: Props) {

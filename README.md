@@ -4,7 +4,11 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 `npm i` to install package
 
-`npm run start` to run on webpack dev server.
+`npm start` to run on webpack dev server.
 
-`npm run build && npm i -g serve && serve -s build` to build and serve static version.
+`npm test` to run any tests
+
+`npm i -g serve` then `npm run build && serve -s build` to build and serve static version.
+
+`npm run lint` to lint the code
 
